@@ -1,6 +1,7 @@
 import { useState, useRef } from 'react';
 import axios from 'axios';
 import { useAuth } from '../context/AuthContext';
+import './Editor.css';
 
 interface Keystroke {
   duration: number;
@@ -57,21 +58,21 @@ export default function Editor() {
   };
 
   return (
-    <div style={{ padding: '20px', maxWidth: '800px', margin: '0 auto' }}>
-      <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '20px' }}>
-        <h2>Vi-Notes Editor</h2>
-        <button onClick={logout}>Logout</button>
+    <div className="editor-container">
+      <div className="editor-header">
+        <h2>Vi-Notes</h2>
+        <button className="logout-btn" onClick={logout}>Logout</button>
       </div>
       <textarea
+        className="writing-area"
         value={content}
         onChange={(e) => setContent(e.target.value)}
         onKeyDown={handleKeyDown}
         onKeyUp={handleKeyUp}
         onPaste={handlePaste}
-        style={{ width: '100%', height: '400px', padding: '10px', fontSize: '16px' }}
         placeholder="Start writing naturally..."
       />
-      <button onClick={handleSave} style={{ marginTop: '10px', padding: '10px 20px' }}>
+      <button className="save-btn" onClick={handleSave}>
         Save Session
       </button>
     </div>

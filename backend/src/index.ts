@@ -19,6 +19,7 @@ app.use('/api/session', sessionRoutes);
 mongoose.connect(process.env.MONGO_URI as string)
   .then(() => {
     app.listen(PORT, () => {
+      console.log("MongoDB connected");
       console.log(`Server running on port ${PORT}`);
     });
   })

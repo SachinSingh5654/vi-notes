@@ -3,6 +3,7 @@ import { AuthProvider, useAuth } from './context/AuthContext';
 import Login from './components/Login';
 import Register from './components/Register';
 import Editor from './components/Editor';
+import './App.css';
 import React from 'react';
 
 const PrivateRoute = ({ children }: { children: React.JSX.Element }) => {
