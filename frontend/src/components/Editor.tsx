@@ -17,7 +17,7 @@ interface PasteEvent {
 
 export default function Editor() {
   const [content, setContent] = useState('');
-  const { token, logout } = useAuth();
+  const { token } = useAuth();
   const navigate = useNavigate();
   const activeKeys = useRef<Map<string, number>>(new Map());
   const keystrokes = useRef<Keystroke[]>([]);
