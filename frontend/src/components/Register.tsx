@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useAuth } from '../context/AuthContext';
 import './Auth.css';
+import toast from 'react-hot-toast';
 
 export default function Register() {
   const [email, setEmail] = useState('');
@@ -13,11 +14,13 @@ export default function Register() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const res = await axios.post('http://localhost:5000/api/auth/register', { email, password });
+      const res = await axios.post(`${import.meta.env.VITE_API_URL}/api/auth/register`, { email, password });
       login(res.data.token);
+      toast.success('Successfully Creaetd Account');
       navigate('/');
     } catch (err) {
-      alert('Registration failed');
+      // alert('Registration failed');
+      toast.error('Registration failed, User already exist');
     }
   };
 

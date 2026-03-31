@@ -1,7 +1,9 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import toast from 'react-hot-toast';
 import { useAuth } from '../context/AuthContext';
+import './Auth.css';
 
 export default function Login() {
   const [email, setEmail] = useState('');
@@ -12,11 +14,12 @@ export default function Login() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const res = await axios.post('http://localhost:5000/api/auth/login', { email, password });
+      const res = await axios.post(`${import.meta.env.VITE_API_URL}/api/auth/login`, { email, password });
       login(res.data.token);
-      navigate('/');
+      toast.success('Successfully logged in');
+      navigate('/notes');
     } catch (err) {
-      alert('Login failed');
+      toast.error('Login failed. Please check your credentials.');
     }
   };
 

@@ -1,4 +1,5 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { Toaster } from 'react-hot-toast'; // <-- Add this import
 import { AuthProvider, useAuth } from './context/AuthContext';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
@@ -38,6 +39,21 @@ export default function App() {
     <AuthProvider>
       <Router>
         <div className="app-layout">
+          <Toaster position="bottom-left" toastOptions={{ duration: 3000,
+          style: {
+            background: "#333",
+            color: "#fff",
+            fontSize: "16px",
+            padding: "14px 20px",
+            borderRadius: "8px",
+          },
+          success: {
+            style: { background: "green" },
+          },
+          error: {
+            style: { background: "red" },
+          },
+        }} />
           <Navbar />
           <main className="main-content">
             <AppRoutes />

@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useAuth } from '../context/AuthContext';
 import './NotesList.css';
+import toast from 'react-hot-toast';
 
 interface SessionData {
   _id: string;
@@ -19,12 +20,13 @@ export default function NotesList() {
   useEffect(() => {
     const fetchNotes = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/session', {
+        const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/session`, {
           headers: { Authorization: `Bearer ${token}` }
         });
         setNotes(response.data);
       } catch (err) {
-        alert('Failed to load notes');
+        // alert('Failed to load notes');
+        toast.error("Failed to load notes");
       }
     };
     fetchNotes();
@@ -34,7 +36,7 @@ export default function NotesList() {
     <div className="notes-container">
       <div className="notes-header">
         <h2>Your Saved Notes</h2>
-        <button className="back-btn" onClick={() => navigate('/')}>Back to Editor</button>
+        <button className="back-btn" onClick={() => navigate('/')}>Add New Note</button>
       </div>
       
       <div className="notes-grid">
@@ -48,7 +50,7 @@ export default function NotesList() {
                   {new Date(note.createdAt).toLocaleDateString()} at {new Date(note.createdAt).toLocaleTimeString()}
                 </span>
                 {note.pasteEvents.length > 0 && (
-                  <span className="tag-pasted">⚠️ Contains Pasted Text</span>
+                  <span style={{color: "red"}} className="tag-pasted"> Contains Pasted Text</span>
                 )}
               </div>
               <div className="note-content">

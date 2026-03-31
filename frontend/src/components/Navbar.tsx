@@ -1,6 +1,7 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import './Navbar.css';
+import toast from 'react-hot-toast';
 
 export default function Navbar() {
   const { token, logout } = useAuth();
@@ -8,6 +9,7 @@ export default function Navbar() {
 
   const handleLogout = () => {
     logout();
+    toast.success("Logout Successfully");
     navigate('/login');
   };
 
