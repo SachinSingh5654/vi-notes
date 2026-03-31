@@ -22,4 +22,13 @@ router.post('/', authMiddleware, async (req: AuthRequest, res) => {
   }
 });
 
+router.get('/', authMiddleware, async (req: AuthRequest, res) => {
+  try {
+    const sessions = await Session.find({ userId: req.userId }).sort({ createdAt: -1 });
+    res.status(200).json(sessions);
+  } catch (error) {
+    res.status(500).json({ message: 'Error fetching sessions' });
+  }
+});
+
 export default router;

@@ -1,5 +1,6 @@
 import { useState, useRef } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import './Editor.css';
 
@@ -16,6 +17,7 @@ interface PasteEvent {
 export default function Editor() {
   const [content, setContent] = useState('');
   const { token, logout } = useAuth();
+  const navigate = useNavigate();
   const activeKeys = useRef<Map<string, number>>(new Map());
   const keystrokes = useRef<Keystroke[]>([]);
   const pasteEvents = useRef<PasteEvent[]>([]);
@@ -50,6 +52,7 @@ export default function Editor() {
         headers: { Authorization: `Bearer ${token}` }
       });
       alert('Session saved successfully!');
+      setContent('');
       keystrokes.current = [];
       pasteEvents.current = [];
     } catch (err) {
@@ -60,8 +63,7 @@ export default function Editor() {
   return (
     <div className="editor-container">
       <div className="editor-header">
-        <h2>Vi-Notes</h2>
-        <button className="logout-btn" onClick={logout}>Logout</button>
+        <h2>Add new note (Do not paste, you will be caught):</h2>
       </div>
       <textarea
         className="writing-area"
